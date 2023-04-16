@@ -1,6 +1,16 @@
-package com.example.demo;
+package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface BoatRepository extends JpaRepository<Boat, Long> {
+import com.example.demo.model.Boat;
+
+public interface BoatRepository {
+
+    List<Boat> findAll();
+
+    Boat findById(Long id);
+
+    void save(Boat boat);
+
+    void deleteById(Long id);
 }

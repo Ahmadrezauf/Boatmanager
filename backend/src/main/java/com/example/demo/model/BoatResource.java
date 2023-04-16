@@ -1,27 +1,44 @@
+package com.example.demo.resource;
+
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Boat;
+import com.example.demo.service.BoatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/users/{userId}/boats/{boatId}/resources")
+@RequestMapping("/api")
 public class BoatResource {
 
     @Autowired
     private BoatService boatService;
 
-    @GetMapping
-    public List<Resource> getAllResources(@PathVariable Long userId, @PathVariable Long boatId) {
-        return boatService.getAllResources(userId, boatId);
+    @GetMapping("/boats")
+    public List<Boat> getAllBoats() {
+        return boatService.getAllBoats();
     }
 
-    @PostMapping
-    public Resource addResource(@PathVariable Long userId, @PathVariable Long boatId, @RequestBody Resource resource) {
-        return boatService.addResource(userId, boatId, resource);
+    @GetMapping("/boats/{id}")
+    public Boat getBoatById(@PathVariable(value = "id") Long boatId) throws ResourceNotFoundException {
+        return boatService.getBoatById(boatId);
     }
 
-    @PutMapping("/{resourceId}")
-    public Resource updateResource(@PathVariable Long userId, @PathVariable Long boatId, @PathVariable Long resourceId, @RequestBody Resource resource) {
-        return boatService.updateResource(userId, boatId, resourceId, resource);
+    @PostMapping("/boats")
+    public Boat createBoat(@Valid @RequestBody Boat boat) {
+        return boatService.createBoat(boat);
     }
 
-    @DeleteMapping("/{resourceId}")
-    public void deleteResource(@PathVariable Long userId, @PathVariable Long boatId, @PathVariable Long resourceId) {
-        boatService.deleteResource(userId, boatId, resourceId);
+    @PutMapping("/boats/{id}")
+    public Boat updateBoat(@PathVariable(value = "id") Long boatId,
+                           @Valid @RequestBody Boat boatDetails) throws ResourceNotFoundException {
+        return boatService.updateBoat(boatId, boatDetails);
+    }
+
+    @DeleteMapping("/boats/{id}")
+    public void deleteBoat(@PathVariable(value = "id") Long boatId) throws ResourceNotFoundException {
+        boatService.deleteBoat(boatId);
     }
 }

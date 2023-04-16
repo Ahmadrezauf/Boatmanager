@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import javax.persistence.*;
 
@@ -8,17 +8,22 @@ public class Boat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
     private String name;
-    private String description;
+
+    @Column(name = "quantity")
     private int quantity;
 
-    // Constructors, getters, and setters
+    @Column(name = "description")
+    private String description;
+
     public Boat() {}
 
-    public Boat(String name, String description, int quantity) {
+    public Boat(String name, int quantity, String description) {
         this.name = name;
-        this.description = description;
         this.quantity = quantity;
+        this.description = description;
     }
 
     public Long getId() {
@@ -37,19 +42,19 @@ public class Boat {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

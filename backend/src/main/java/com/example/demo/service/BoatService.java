@@ -1,22 +1,14 @@
-@Service
-public class BoatService {
+package com.example.demo.service;
 
-    @Autowired
-    private BoatRepository boatRepository;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Boat;
 
-    public List<Boat> getAllBoats() {
-        return boatRepository.findAll();
-    }
+import java.util.List;
 
-    public Optional<Boat> getBoatById(Long id) {
-        return boatRepository.findById(id);
-    }
-
-    public Boat saveBoat(Boat boat) {
-        return boatRepository.save(boat);
-    }
-
-    public void deleteBoatById(Long id) {
-        boatRepository.deleteById(id);
-    }
+public interface BoatService {
+    List<Boat> getAllBoats();
+    Boat getBoatById(Long boatId) throws ResourceNotFoundException;
+    Boat createBoat(Boat boat);
+    Boat updateBoat(Long boatId, Boat boatDetails) throws ResourceNotFoundException;
+    void deleteBoat(Long boatId) throws ResourceNotFoundException;
 }
